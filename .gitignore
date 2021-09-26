@@ -1,7 +1,10 @@
+*.log
+*.mp4
 debug*
 checkpoints/
 datasets/
 models/debug*
+models/flownet2*/*.tar
 models/flownet2*/networks/*/*egg-info
 models/flownet2*/networks/*/build
 models/flownet2*/networks/*/__pycache__

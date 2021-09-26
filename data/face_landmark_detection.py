@@ -8,6 +8,8 @@ import sys
 if len(sys.argv) < 2 or (sys.argv[1] != 'train' and sys.argv[1] != 'test'):
     raise ValueError('usage: python data/face_landmark_detection.py [train|test]')
 
+dlib.DLIB_USE_CUDA = 1
+
 phase = sys.argv[1]
 dataset_path = 'datasets/face/'
 faces_folder_path = os.path.join(dataset_path, phase + '_img/')
