@@ -75,7 +75,9 @@ class FaceDataset(BaseDataset):
         # draw edges and possibly add distance transform maps
         add_dist_map = not self.opt.no_dist_map
         im_edges, dist_tensor = self.draw_face_edges(keypoints, part_list, transform_A, size, add_dist_map)
-        
+       
+#        print(keypoints.shape, len(part_list), part_labels.shape, im_edges.shape, dist_tensor.shape) 
+
         # canny edge for background
         if not self.opt.no_canny_edge:
             edges = feature.canny(np.array(img.convert('L')))        
@@ -83,9 +85,12 @@ class FaceDataset(BaseDataset):
             im_edges += (edges * 255).astype(np.uint8)
         edge_tensor = transform_A(Image.fromarray(self.crop(im_edges)))
 
+#        print(edge_tensor.shape)
         # final input tensor
         input_tensor = torch.cat([edge_tensor, dist_tensor]) if add_dist_map else edge_tensor
         label_tensor = transform_L(Image.fromarray(self.crop(part_labels.astype(np.uint8)))) * 255.0
+
+#        print(input_tensor.shape, label_tensor.shape)
         return input_tensor, label_tensor
 
     def read_keypoints(self, A_path, size):        
